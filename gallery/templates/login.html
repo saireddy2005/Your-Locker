@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gallery | Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="right">
+        <h1>Welcome Back!</h1>
+        <h3>Login to Your Account</h3>    
+        {% if error %}
+        <div class="error" id="message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if success %}
+        <div class="success" id="message">
+            {{ success }}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label class="input-label">
+    <i class="fa-regular fa-user"></i>
+    Username
+</label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter Username"
+                pattern="[A-Za-z0-9_]+"
+                title="Username can contain letters, numbers and underscore."
+                required>
+
+            <label class="input-label">
+    <i class="fa-solid fa-lock"></i>
+    Password
+</label>
+
+<input
+    type="password"
+    name="password"
+    placeholder="Enter Password"
+    required>
+
+<div style="text-align:right; margin-top:-10px; margin-bottom:20px;">
+    <a href="/forgot-password/" style="text-decoration:none;color:#0f4c81;;font-size:14px;font-weight:600;">
+        Forgot Password?
+    </a>
+</div>
+
+            <button type="submit">
+                Login
+            </button>
+        </form>
+        <div class="divider">
+    <span>Or</span>
+</div>
+        <div class="footer">
+            Don't have an account?
+            <a href="/signup/">
+                Sign Up
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+setTimeout(function(){
+    let msg = document.getElementById("message");
+    if(msg){
+        msg.style.display="none";
+    }
+
+},5000);
+</script>
+</body>
+</html>

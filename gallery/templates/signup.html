@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gallery | Sign Up</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="right">
+        <h1>YourLocker</h1>
+        <h3>Create Your Account</h3>
+        {% if error %}
+        <div class="error" id="message">
+            {{ error }}
+        </div>
+        {% endif %}
+        {% if success %}
+        <div class="success" id="message">
+            {{ success }}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label class="input-label">
+    <i class="fa-regular fa-user"></i>
+    Username
+</label>
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter Username"
+                pattern="[A-Za-z0-9_]+"
+                title="Username should contain only letters."
+                required>
+
+<label><i class="fa-solid fa-phone"></i> Mobile Number</label>
+<input
+    type="tel"
+    name="mobile"
+    placeholder="Enter Mobile Number"
+    pattern="[0-9]{10}"
+    maxlength="10"
+    inputmode="numeric"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+    required>
+<label class="input-label">
+<i class="fa-solid fa-key"></i>
+ Password
+</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter Password"
+                required>
+
+            <label class="input-label">
+    <i class="fa-solid fa-lock"></i>
+   Confirm Password
+</label>
+            <input
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm Password"
+                required>
+            <button type="submit">
+                Register
+            </button>
+        </form>
+                <div class="divider">
+    <span>Or</span>
+</div>
+        <div class="footer">
+            Already have an account?
+            <a href="/">Login</a>
+        </div>
+    </div>
+</div>
+<script>
+setTimeout(function(){
+    let msg = document.getElementById("message");
+    if(msg){
+        msg.style.display="none";
+    }
+},5000);
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gallery | File Preview</title>
+    <link rel="stylesheet" href="{% static 'css/view_file.css' %}">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <div class="file-info">
+            <h2>{{ file.title }}</h2>
+            <p><strong>Category :</strong> {{ file.category }}</p>
+        </div>
+
+        <div class="menu">
+            <button class="menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <div id="dropdown" class="dropdown">
+                <a href="{{ file.file.url }}" download>
+                    <i class="fa-solid fa-download"></i>
+                    Download
+                </a>
+                <a href="#" onclick="shareFile(); return false;">
+                    <i class="fa-solid fa-share"></i>
+                    Share
+                </a>
+
+                <a href="{% url 'delete_file' file.id %}"
+                   onclick="return confirmDelete()">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="preview">
+        {% if is_image %}
+        <a href="{{ file.file.url }}" target="_blank">
+            <img
+                src="{{ file.file.url }}"
+                alt="{{ file.title }}"
+                class="preview-image">
+        </a>
+        {% elif is_pdf %}
+        <div class="pdf-box">
+            <i class="fa-solid fa-file-pdf pdf-icon"></i>
+            <a href="{{ file.file.url }}"
+               target="_blank"
+               class="open-btn">
+                <i class="fa-solid fa-eye"></i>
+                Open PDF
+            </a>
+        </div>
+        {% else %}
+        <h3>Preview Not Available</h3>
+        {% endif %}
+    </div>
+</div>
+<script>
+function toggleMenu(){
+    let menu=document.getElementById("dropdown");
+    if(menu.style.display==="block"){
+        menu.style.display="none";
+    }
+    else{
+        menu.style.display="block";
+    }
+}
+window.onclick=function(event){
+    if(!event.target.closest(".menu")){
+        document.getElementById("dropdown").style.display="none";
+    }
+}
+function confirmDelete(){
+    return confirm("Are you sure?\n\nThis file will be permanently deleted.");
+}
+function shareFile(){
+    if(navigator.share){
+        navigator.share({
+            title:"Secure Gallery",
+            text:"Check this file",
+            url:"{{ file_url }}"
+        });
+    }
+    else{
+        navigator.clipboard.writeText("{{ file_url }}");
+        alert("File link copied successfully.");
+    }
+}
+</script>
+</body>
+</html>

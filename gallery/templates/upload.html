@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gallery | Upload File</title>
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+<div class="container">
+    <div class="upload-box">
+        <div class="icon">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+        </div>
+        <h1>Upload File</h1>
+        <p>
+            Store your files securely in your Digital Locker.
+        </p>
+
+        {% if success %}
+        <div class="success">
+            {{ success }}
+        </div>
+        {% endif %}
+        {% if error %}
+<div class="error">
+    {{ error }}
+</div>
+{% endif %}
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <label>
+                <i class="fa-solid fa-file"></i>
+                File Title
+            </label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter File Title"
+                required>
+
+            <label>
+                <i class="fa-solid fa-folder"></i>
+                Category
+            </label>
+            <select name="category" required>
+                <option value="">Select Category</option>
+                <option>Certificates</option>
+                <option>Government Documents</option>
+                <option>Account Books</option>
+                <option>Personal Files</option>
+                <option>Others</option>
+            </select>
+
+            <label>
+                <i class="fa-solid fa-paperclip"></i>
+                Select File
+            </label>
+
+            <input
+                type="file"
+                name="file"
+                required>
+
+<div class="upload-btn-box">
+    <button type="submit">
+        <i class="fa-solid fa-upload"></i>
+        Upload File
+    </button>
+</div>
+        </form>
+        <div class="footer">
+            <a href="{% url 'home' %}">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+setTimeout(function(){
+    const success = document.querySelector(".success");
+    if(success){
+        success.style.transition = "opacity 0.5s ease";
+        success.style.opacity = "0";
+        setTimeout(function(){
+            success.style.display = "none";
+        },500);
+    }
+},3000);
+</script>
+<script>
+setTimeout(function(){
+    let success = document.querySelector(".success");
+    let error = document.querySelector(".error");
+    if(success){
+        success.style.display="none";
+    }
+    if(error){
+        error.style.display="none";
+    }
+
+},3000);
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gallery | Home</title>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-lock"></i>
+        <span>Your Locker</span>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" onclick="toggleProfile()">
+            <i class="fa-solid fa-user"></i>
+            <span>{{request.session.username}}</span>
+            <i class="fa-solid fa-angle-down"></i>
+        </button>
+
+        <div id="profileDropdown" class="profile-dropdown">        
+            <a href="#" onclick="toggleEdit(); return false;">
+                <i class="fa-solid fa-user-pen"></i>
+                Edit Username
+            </a>
+            <div id="editBox" class="edit-box">
+                <form method="POST" action="{% url 'edit_username' %}">
+                    {% csrf_token %}
+
+                    <input
+                        type="text"
+                        name="username"
+                        class="edit-input"                        
+                        placeholder="Enter New Username"
+                        required>
+                    <button
+                        type="submit"
+                        class="update-btn">
+                        Update Username
+                    </button>
+                </form>
+            </div>
+
+            <a href="#" onclick="togglePasswordBox(); return false;">
+                <i class="fa-solid fa-key"></i>
+                Change Password
+            </a>
+
+            <div id="passwordBox" class="edit-box">
+               <form id="passwordForm">
+                    {% csrf_token %}
+                    <input
+                        type="password"
+                        name="new_password"
+                        class="edit-input"
+                        placeholder="Enter New Password"
+                        required>
+
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        class="edit-input"
+                        placeholder="Confirm Password"
+                        required>
+
+                    <button
+                        type="submit"
+                        class="update-btn">
+                        Update Password
+                    </button>
+                </form>
+                <div id="passwordMessage" class="message-box"></div>
+            </div>
+            
+            <a href="{% url 'logout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-left">
+        <img src="{% static 'css/images/sai33.jpeg' %}" alt="Secure Gallery">
+    </div>
+    <div class="hero-right">
+        <h1>Secure Gallery</h1>
+        <p>
+            Store your certificates, government documents,
+            account books, and personal files securely.
+            Access them anytime, anywhere.
+        </p>
+
+        <a href="{% url 'upload_file' %}" class="upload-btn">
+            <i class="fa-solid fa-upload"></i>
+            Upload File
+        </a>
+    </div>
+</section>
+
+<section class="recent-files">
+    <h2 class="title">
+        <i class="fa-regular fa-folder-open"></i>
+        Recent Files
+    </h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>
+                    {% if file.category == "Certificates" %}
+                        <i class="fa-regular fa-file-pdf file-icon"></i>
+
+                    {% elif file.category == "Account Books" %}
+                        <i class="fa-regular fa-file-excel file-icon"></i>
+
+                    {% elif file.category == "Government Documents" %}
+                        <i class="fa-regular fa-id-card file-icon"></i>
+
+                    {% else %}
+                        <i class="fa-regular fa-file-lines file-icon"></i>
+
+                    {% endif %}
+
+                    {{ file.title }}
+                </td>
+                <td>{{ file.category }}</td>
+                <td>
+                    <a href="{% url 'view_file' file.id %}" class="view-btn">
+                        View
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="empty">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <br><br>
+                    No files uploaded yet.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+</div>
+<script>
+function toggleProfile(){
+    const menu = document.getElementById("profileDropdown");
+    if(menu.style.display === "block"){
+        menu.style.display = "none";
+    }else{
+        menu.style.display = "block";
+    }
+}
+function toggleEdit(){
+    const editBox = document.getElementById("editBox");
+    const passwordBox = document.getElementById("passwordBox");
+    passwordBox.style.display = "none";
+    if(editBox.style.display === "block"){
+        editBox.style.display = "none";
+    }else{
+        editBox.style.display = "block";
+    }
+}
+
+function togglePasswordBox(){
+    const passwordBox = document.getElementById("passwordBox");
+    const editBox = document.getElementById("editBox");
+    editBox.style.display = "none";
+    if(passwordBox.style.display === "block"){
+        passwordBox.style.display = "none";
+    }else{
+        passwordBox.style.display = "block";
+    }
+}
+window.onclick = function(e){
+    if(!e.target.closest(".profile-menu")){
+        document.getElementById("profileDropdown").style.display = "none";
+        document.getElementById("editBox").style.display = "none";
+        document.getElementById("passwordBox").style.display = "none";
+    }
+}
+
+document.getElementById("passwordForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    fetch("{% url 'change_password' %}",{
+        method:"POST",
+        body:new FormData(this),
+        headers:{
+            "X-CSRFToken":"{{ csrf_token }}"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const msg = document.getElementById("passwordMessage");
+       msg.style.display="block";
+if(data.status=="success"){
+    msg.className="message-box success";
+    msg.innerHTML='<i class="fa-solid fa-circle-check"></i> '+data.message;
+    setTimeout(function(){
+    msg.style.display="none";
+    msg.innerHTML="";
+},3000);
+}else{
+    msg.className="message-box error";
+    msg.innerHTML='<i class="fa-solid fa-circle-xmark"></i> '+data.message;
+        setTimeout(function(){
+    msg.style.display="none";
+    msg.innerHTML="";
+},3000);
+}
+    })
+})
+</script>
+</body>
+</html>
