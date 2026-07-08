@@ -40,20 +40,24 @@
                 type="text"
                 name="username"
                 placeholder="Enter Username"
-                pattern="[A-Za-z0-9_]+"
-                title="Username can contain letters, numbers and underscore."
+                
+                
                 required>
-
-            <label class="input-label">
-    <i class="fa-solid fa-lock"></i>
+<label class="input-label">
+    <i class="fa-solid fa-key"></i>
     Password
 </label>
 
-<input
-    type="password"
-    name="password"
-    placeholder="Enter Password"
-    required>
+<div class="password-box">
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter Password"
+        required>
+
+    <i class="fa-solid fa-eye toggle-password"></i>
+</div>
 
 <div style="text-align:right; margin-top:-10px; margin-bottom:20px;">
     <a href="/forgot-password/" style="text-decoration:none;color:#0f4c81;;font-size:14px;font-weight:600;">
@@ -84,6 +88,27 @@ setTimeout(function(){
     }
 
 },5000);
+</script>
+<script>
+document.querySelectorAll(".toggle-password").forEach(function(icon){
+
+    icon.addEventListener("click",function(){
+
+        let input = this.previousElementSibling;
+
+        if(input.type === "password"){
+            input.type = "text";
+            this.classList.remove("fa-eye");
+            this.classList.add("fa-eye-slash");
+        }else{
+            input.type = "password";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        }
+
+    });
+
+});
 </script>
 </body>
 </html>

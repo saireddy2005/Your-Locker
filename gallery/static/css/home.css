@@ -628,3 +628,29 @@ tbody td{
         margin:20px auto;
     }
 }
+
+
+.password-box{
+    position:relative;
+    width:100%;
+}
+
+.password-box .edit-input{
+    width:100%;
+    padding-right:45px;
+}
+
+.password-box .toggle-password{
+    position:absolute;
+    right:15px;
+    top:40%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#666;
+    font-size:15px;
+    transition:.3s;
+}
+
+.password-box .toggle-password:hover{
+    color:#0f4c81;
+}

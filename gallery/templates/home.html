@@ -59,20 +59,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             <div id="passwordBox" class="edit-box">
                <form id="passwordForm">
                     {% csrf_token %}
-                    <input
-                        type="password"
-                        name="new_password"
-                        class="edit-input"
-                        placeholder="Enter New Password"
-                        required>
 
-                    <input
-                        type="password"
-                        name="confirm_password"
-                        class="edit-input"
-                        placeholder="Confirm Password"
-                        required>
+<div class="password-box">
+    <input
+        type="password"
+        id="new_password"
+        name="new_password"
+        class="edit-input"
+        placeholder="Enter New Password"
+        required>
 
+    <i class="fa-solid fa-eye toggle-password"></i>
+</div>
+
+<div class="password-box">
+    <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+        class="edit-input"
+        placeholder="Confirm Password"
+        required>
+
+    <i class="fa-solid fa-eye toggle-password"></i>
+</div>
                     <button
                         type="submit"
                         class="update-btn">
@@ -231,6 +241,27 @@ if(data.status=="success"){
 }
     })
 })
+</script>
+<script>
+document.querySelectorAll(".toggle-password").forEach(function(icon){
+
+    icon.addEventListener("click", function(){
+
+        let input = this.previousElementSibling;
+
+        if(input.type === "password"){
+            input.type = "text";
+            this.classList.remove("fa-eye");
+            this.classList.add("fa-eye-slash");
+        }else{
+            input.type = "password";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        }
+
+    });
+
+});
 </script>
 </body>
 </html>

@@ -33,12 +33,13 @@
     Username
 </label>
             <input
-                type="text"
-                name="username"
-                placeholder="Enter Username"
-                pattern="[A-Za-z0-9_]+"
-                title="Username should contain only letters."
-                required>
+    type="text"
+    name="username"
+    class="input-box"
+    placeholder="Enter Username"
+    pattern="^[A-Za-z0-9_.@]+$"
+    title="Username can contain letters, numbers, underscore (_), dot (.), and @ only."
+    required>
 
 <label><i class="fa-solid fa-phone"></i> Mobile Number</label>
 <input
@@ -51,25 +52,41 @@
     oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
     required>
 <label class="input-label">
-<i class="fa-solid fa-key"></i>
- Password
+    <i class="fa-solid fa-key"></i>
+    Password
 </label>
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Enter Password"
-                required>
+<div class="password-box">
+<input
+    type="password"
+    id="password"
+    name="password"
+    class="input-box"
+    placeholder="Enter Password"
+    minlength="8"
+    
+    required>
 
-            <label class="input-label">
+    <i class="fa-solid fa-eye toggle-password"></i>
+</div>
+
+ <label class="input-label">
     <i class="fa-solid fa-lock"></i>
-   Confirm Password
+    Confirm Password
 </label>
-            <input
-                type="password"
-                name="confirm_password"
-                placeholder="Confirm Password"
-                required>
+
+<div class="password-box">
+<input
+    type="password"
+    id="confirm_password"
+    name="confirm_password"
+    class="input-box"
+    placeholder="Confirm Password"
+    minlength="8"
+    required>
+
+    <i class="fa-solid fa-eye toggle-password"></i>
+</div>
             <button type="submit">
                 Register
             </button>
@@ -90,6 +107,28 @@ setTimeout(function(){
         msg.style.display="none";
     }
 },5000);
+</script>
+<script>
+document.querySelectorAll(".toggle-password").forEach(function(icon){
+
+    icon.addEventListener("click",function(){
+
+        let input=this.previousElementSibling;
+
+        if(input.type==="password"){
+            input.type="text";
+            this.classList.remove("fa-eye");
+            this.classList.add("fa-eye-slash");
+        }
+        else{
+            input.type="password";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        }
+
+    });
+
+});
 </script>
 </body>
 </html>
