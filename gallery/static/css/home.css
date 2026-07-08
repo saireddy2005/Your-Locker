@@ -366,3 +366,221 @@ tbody tr:hover{
         transform:translateY(0);
     }
 }
+
+@media (max-width: 992px){
+
+.container{
+    width:90%;
+    max-width:100%;
+}
+
+.hero{
+    padding:30px;
+}
+
+.hero-right h1{
+    font-size:38px;
+}
+
+.hero-right p{
+    font-size:17px;
+}
+
+.logo{
+    font-size:26px;
+}
+
+}
+
+
+@media (max-width:768px){
+
+body{
+    display:block;
+    padding:15px;
+}
+
+.container{
+    width:100%;
+    margin:15px auto;
+}
+
+.navbar{
+    padding:15px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.logo{
+    font-size:24px;
+}
+
+.logo i{
+    font-size:26px;
+}
+
+.profile-menu{
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.profile-dropdown{
+    width:230px;
+}
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+    padding:25px;
+}
+
+.hero-left,
+.hero-right{
+    width:100%;
+}
+
+.hero-left{
+    margin-bottom:20px;
+}
+
+.hero-left img{
+    width:70%;
+    max-width:220px;
+}
+
+.hero-right h1{
+    font-size:36px;
+    margin-bottom:15px;
+}
+
+.hero-right p{
+    font-size:18px;
+    line-height:32px;
+}
+
+.upload-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    font-size:18px;
+    padding:14px;
+}
+
+.recent-files{
+    padding:18px;
+}
+
+.title{
+    font-size:26px;
+}
+
+table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+thead th,
+tbody td{
+    font-size:15px;
+    padding:14px;
+}
+
+.file-icon{
+    font-size:18px;
+}
+
+.edit-box{
+    padding:12px;
+}
+
+.edit-input{
+    font-size:14px;
+}
+
+.update-btn{
+    font-size:14px;
+}
+
+}
+
+@media (max-width:480px){
+
+.container{
+    width:100%;
+}
+
+.navbar{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.logo{
+    font-size:20px;
+}
+
+.logo i{
+    font-size:22px;
+}
+
+.profile-menu{
+    width:100%;
+    justify-content:flex-end;
+}
+
+.profile-btn{
+    font-size:14px;
+    padding:10px 14px;
+}
+
+.profile-btn span{
+    max-width:90px;
+}
+
+.profile-dropdown{
+    width:100%;
+    right:0;
+}
+
+.hero{
+    padding:20px;
+}
+
+.hero-left img{
+    width:75%;
+    max-width:180px;
+}
+
+.hero-right h1{
+    font-size:28px;
+}
+
+.hero-right p{
+    font-size:16px;
+    line-height:28px;
+}
+
+.upload-btn{
+    font-size:16px;
+}
+
+.title{
+    font-size:22px;
+}
+
+thead th,
+tbody td{
+    font-size:14px;
+    padding:12px;
+}
+
+.empty{
+    font-size:15px;
+}
+
+.empty i{
+    font-size:30px;
+}
+
+}
