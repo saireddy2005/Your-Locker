@@ -190,3 +190,82 @@ body{
     font-size:14px;
     font-weight:600;
 }
+
+@media screen and (max-width:768px){
+
+    body{
+        display:block;
+        min-height:auto;
+        padding:20px 0;
+        background-attachment:scroll;
+    }
+
+    .container{
+        width:95%;
+        max-width:95%;
+        margin:20px auto;
+        padding:20px;
+        border-radius:20px;
+    }
+
+    .header{
+        gap:10px;
+    }
+
+    .file-info h2{
+        font-size:28px;
+    }
+
+    .file-info p{
+        font-size:15px;
+    }
+
+    .menu-btn{
+        width:40px;
+        height:40px;
+    }
+
+    .preview{
+        min-height:260px;
+        padding:15px;
+    }
+
+    .preview-image{
+        max-width:100%;
+        max-height:220px;
+    }
+
+    .pdf-icon{
+        font-size:90px;
+    }
+
+    .open-btn{
+        padding:12px 20px;
+        font-size:15px;
+    }
+
+    .footer{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+}
+@media screen and (max-width:768px){
+
+    body{
+        display:block;
+        min-height:auto ;
+        padding:20px 0 ;
+        background-attachment:scroll;
+    }
+
+    .container,
+    .login-box,
+    .signup-box,
+    .upload-box,
+    .forgot-box{
+        width:95%;
+        max-width:95%;
+        margin:20px auto;
+    }
+}
