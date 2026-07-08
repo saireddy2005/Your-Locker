@@ -9,7 +9,11 @@ SECRET_KEY = 'django-insecure-xj73nz#gk0@dw_qo2mrg3w2=h9w!uewr$0geld=27z14dv_r6d
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "mamidipudisai.pythonanywhere.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 
@@ -91,3 +95,4 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
